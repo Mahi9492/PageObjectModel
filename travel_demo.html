@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Demo Travel - Flights</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .flight { border: 1px solid #ddd; margin: 8px 0; padding: 8px; }
+    .price { font-weight: bold; }
+    #flightsList { margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Demo Travel</h1>
+  <nav>
+    <button id="btnFlights">Flights</button>
+    <button id="btnHotels">Hotels</button>
+  </nav>
+
+  <section id="flightsSection" style="display:none; margin-top:20px;">
+    <h2>Search Flights</h2>
+    <label>From: <input id="from" type="text" /></label><br><br>
+    <label>To: <input id="to" type="text" /></label><br><br>
+    <label>Date: <input id="date" type="date" /></label><br><br>
+    <button id="btnSearch">Search</button>
+
+    <!-- Demo results -->
+    <div id="flightsList"></div>
+  </section>
+
+  <script>
+    document.getElementById('btnFlights').addEventListener('click', function() {
+      document.getElementById('flightsSection').style.display = 'block';
+    });
+    document.getElementById('btnSearch').addEventListener('click', function() {
+      const from = document.getElementById('from').value || 'SRC';
+      const to = document.getElementById('to').value || 'DST';
+      // create demo flights with random-ish prices
+      const flights = [
+        { airline: 'Air A', flight: 'AA101', price: 250 },
+        { airline: 'Air B', flight: 'BB202', price: 190 },
+        { airline: 'Air C', flight: 'CC303', price: 300 },
+        { airline: 'Air D', flight: 'DD404', price: 210 },
+        { airline: 'Air E', flight: 'EE505', price: 175 }
+      ];
+      const list = document.getElementById('flightsList');
+      list.innerHTML = '<h3>Results for ' + from + ' → ' + to + '</h3>';
+      flights.forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'flight';
+        div.setAttribute('data-price', f.price);
+        div.innerHTML = '<div><span class="airline">' + f.airline + '</span> - <span class="flightno">' + f.flight + '</span></div>' +
+                        '<div>Departure: 10:00 AM</div>' +
+                        '<div class="price">$' + f.price + '</div>' +
+                        '<button class="detailsBtn">Details</button>';
+        list.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
